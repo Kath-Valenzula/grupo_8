@@ -1,0 +1,147 @@
+package com.demo.demo.service;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.demo.demo.models.Receta;
+import com.demo.demo.repository.RecetaRepository;
+
+@ExtendWith(MockitoExtension.class)
+class RecetaServiceTest {
+
+    @Mock
+    private RecetaRepository recetaRepository;
+
+    @InjectMocks
+    private RecetaService recetaService;
+
+    private Receta receta1;
+    private Receta receta2;
+
+    @BeforeEach
+    void setUp() {
+        receta1 = new Receta();
+        receta1.setId(1L);
+        receta1.setNombre("Pasta Carbonara");
+        receta1.setTipoCocina("Italiana");
+        receta1.setPopular(true);
+
+        receta2 = new Receta();
+        receta2.setId(2L);
+        receta2.setNombre("Tacos");
+        receta2.setTipoCocina("Mexicana");
+        receta2.setPopular(false);
+    }
+
+    @Test
+    void testListarTodas() {
+        // Arrange
+        when(recetaRepository.findAll()).thenReturn(Arrays.asList(receta1, receta2));
+
+        // Act
+        List<Receta> result = recetaService.listarTodas();
+
+        // Assert
+        assertEquals(2, result.size());
+        verify(recetaRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testListarPopulares() {
+        // Arrange
+        when(recetaRepository.findByPopularTrue()).thenReturn(Arrays.asList(receta1));
+
+        // Act
+        List<Receta> result = recetaService.listarPopulares();
+
+        // Assert
+        assertEquals(1, result.size());
+        assertTrue(result.get(0).isPopular());
+        verify(recetaRepository, times(1)).findByPopularTrue();
+    }
+
+    @Test
+    void testObtenerPorId_Existe() {
+        // Arrange
+        when(recetaRepository.findById(1L)).thenReturn(Optional.of(receta1));
+
+        // Act
+        Optional<Receta> result = recetaService.obtenerPorId(1L);
+
+        // Assert
+        assertTrue(result.isPresent());
+        assertEquals("Pasta Carbonara", result.get().getNombre());
+        verify(recetaRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void testObtenerPorId_NoExiste() {
+        // Arrange
+        when(recetaRepository.findById(999L)).thenReturn(Optional.empty());
+
+        // Act
+        Optional<Receta> result = recetaService.obtenerPorId(999L);
+
+        // Assert
+        assertFalse(result.isPresent());
+        verify(recetaRepository, times(1)).findById(999L);
+    }
+
+    @Test
+    void testGuardar() {
+        // Arrange
+        when(recetaRepository.save(receta1)).thenReturn(receta1);
+
+        // Act
+        Receta result = recetaService.guardar(receta1);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("Pasta Carbonara", result.getNombre());
+        verify(recetaRepository, times(1)).save(receta1);
+    }
+
+    @Test
+    void testBuscarPorNombre() {
+        // Arrange
+        when(recetaRepository.findByNombreContainingIgnoreCase("Pasta"))
+                .thenReturn(Arrays.asList(receta1));
+
+        // Act
+        List<Receta> result = recetaService.buscar("Pasta", null, null, null, null, null);
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals("Pasta Carbonara", result.get(0).getNombre());
+        verify(recetaRepository, times(1)).findByNombreContainingIgnoreCase("Pasta");
+    }
+
+    @Test
+    void testBuscarPopulares() {
+        // Arrange
+        when(recetaRepository.findByPopularTrue()).thenReturn(Arrays.asList(receta1));
+
+        // Act
+        List<Receta> result = recetaService.buscar(null, null, null, null, null, true);
+
+        // Assert
+        assertEquals(1, result.size());
+        assertTrue(result.get(0).isPopular());
+        verify(recetaRepository, times(1)).findByPopularTrue();
+    }
+}
