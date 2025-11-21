@@ -19,7 +19,7 @@ Identificar vulnerabilidades de seguridad en la aplicación web basándose en el
 
 - **URL analizada**: `http://localhost:8080`
 - **Tipo de aplicación**: Aplicación web Java Spring Boot con autenticación basada en sesiones
-- **Páginas analizadas**: 
+- **Páginas analizadas**:
   - `/home` (pública)
   - `/recetas` (pública)
   - `/login` (pública)
@@ -49,7 +49,7 @@ Identificar vulnerabilidades de seguridad en la aplicación web basándose en el
 - **Fecha**: 21 de noviembre de 2025
 - **Hora de inicio**: 19:53:09
 - **Duración**: ~10 minutos (escaneo automatizado completo)
-- **URLs escaneadas**: 7 sitios (incluido http://localhost:8080)
+- **URLs escaneadas**: 7 sitios (incluido `http://localhost:8080`)
 - **Alertas generadas**: 4 alertas (1 Media, 3 Informativas)
 
 ---
@@ -129,6 +129,7 @@ Occurrences: 1475 páginas afectadas
 ```
 
 **Análisis**: Nuestra configuración **SÍ incluye `default-src 'self'`** como directiva de respaldo, además de directivas específicas para:
+
 - ✅ **script-src**: Scripts propios + CDN Bootstrap/jQuery
 - ✅ **style-src**: Estilos propios + CDN Bootstrap
 - ✅ **img-src**: Imágenes propias + data URIs
@@ -165,6 +166,7 @@ Estas alertas son **artefactos del escaneo** y pueden ser ignoradas.
 ## 5. Mitigaciones Implementadas en el Código
 
 ### 5.1. Protección contra Inyección SQL
+
 **Ubicación**: `src/main/java/com/demo/demo/repository/RecetaRepository.java`
 
 La aplicación utiliza Spring Data JPA con consultas parametrizadas, lo que previene inyección SQL:
@@ -175,6 +177,7 @@ List<Receta> findByTipoCocinaContainingIgnoreCase(String tipoCocina);
 ```
 
 ### 5.2. Protección CSRF
+
 **Ubicación**: `src/main/java/com/demo/demo/WebSecurityConfig.java` (líneas 19-21)
 
 CSRF habilitado por defecto en Spring Security. Tokens CSRF se incluyen automáticamente en formularios Thymeleaf:
@@ -187,9 +190,11 @@ CSRF habilitado por defecto en Spring Security. Tokens CSRF se incluyen automát
 ```
 
 ### 5.3. Headers de Seguridad HTTP
+
 **Ubicación**: `src/main/java/com/demo/demo/WebSecurityConfig.java` (líneas 23-34)
 
 Headers configurados:
+
 - **Content-Security-Policy**: Restringe fuentes de contenido
 - **X-Content-Type-Options**: nosniff
 - **X-Frame-Options**: DENY (previene clickjacking)
@@ -197,6 +202,7 @@ Headers configurados:
 - **Strict-Transport-Security**: max-age=31536000 (HSTS)
 
 ### 5.4. Gestión Segura de Sesiones
+
 **Ubicación**: `src/main/java/com/demo/demo/WebSecurityConfig.java` (líneas 47-53)
 
 - **Cookies HttpOnly**: Previene acceso desde JavaScript
@@ -205,6 +211,7 @@ Headers configurados:
 - **Invalidación de sesión**: Logout invalida sesión y elimina cookie
 
 ### 5.5. Validación de Entrada
+
 **Ubicación**: `src/main/java/com/demo/demo/models/User.java` y `Receta.java`
 
 Bean Validation con anotaciones:
@@ -222,6 +229,7 @@ private String password;
 ```
 
 ### 5.6. Encriptación de Contraseñas
+
 **Ubicación**: `src/main/java/com/demo/demo/WebSecurityConfig.java`
 
 BCrypt para hashear contraseñas:
@@ -234,6 +242,7 @@ public PasswordEncoder passwordEncoder() {
 ```
 
 ### 5.7. Control de Acceso
+
 **Ubicación**: `src/main/java/com/demo/demo/WebSecurityConfig.java` (líneas 36-40)
 
 ```java
@@ -249,12 +258,14 @@ public PasswordEncoder passwordEncoder() {
 ## 6. Recomendaciones Adicionales
 
 ### 6.1. Recomendaciones Implementadas
+
 - ✅ Uso de HTTPS en producción (configurado en `application-prod.properties`)
 - ✅ Actualización de dependencias sin vulnerabilidades conocidas (verificado con OWASP Dependency Check)
 - ✅ Configuración de perfiles dev/prod separados
 - ✅ Logging de intentos de acceso fallidos
 
 ### 6.2. Recomendaciones para el Futuro
+
 - [ ] Implementar rate limiting en endpoints de login
 - [ ] Agregar CAPTCHA en formularios de registro
 - [ ] Implementar 2FA (autenticación de dos factores)
@@ -336,16 +347,17 @@ El análisis de seguridad realizado con OWASP ZAP confirma que la aplicación "S
 ### 8.1. Reporte HTML Completo de ZAP
 
 El reporte HTML completo generado por OWASP ZAP se encuentra en:
-```
+
+```text
 docs/zap-report.html
 ```
 
 ### 8.2. Referencias
 
-- OWASP Top 10 2021: https://owasp.org/Top10/
-- OWASP ZAP Documentation: https://www.zaproxy.org/docs/
-- Spring Security Reference: https://docs.spring.io/spring-security/reference/
-- CWE (Common Weakness Enumeration): https://cwe.mitre.org/
+- OWASP Top 10 2021: <https://owasp.org/Top10/>
+- OWASP ZAP Documentation: <https://www.zaproxy.org/docs/>
+- Spring Security Reference: <https://docs.spring.io/spring-security/reference/>
+- CWE (Common Weakness Enumeration): <https://cwe.mitre.org/>
 
 ---
 
