@@ -1,9 +1,6 @@
 {
   "html.validate.scripts": false,
   "html.validate.styles": false,
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "files.associations": {
     "*.html": "html"
   },
@@ -14,5 +11,9 @@
   "java.compile.nullAnalysis.nullable": [],
   "java.completion.enabled": true,
   "java.sources.organizeImports.staticStarThreshold": 99,
-  "java.sources.organizeImports.starThreshold": 99
+  "java.sources.organizeImports.starThreshold": 99,
+  "java.recommendations.notifyRecommended": false,
+  "java.shading.enabled": false,
+  "java.inlayHints.parameterNames.enabled": "none",
+  "problems.showCurrentInStatus": false
 }
