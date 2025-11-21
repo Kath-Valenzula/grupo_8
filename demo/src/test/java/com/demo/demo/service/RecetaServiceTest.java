@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,22 +30,16 @@ class RecetaServiceTest {
     @InjectMocks
     private RecetaService recetaService;
 
-    private Receta receta1;
-    private Receta receta2;
+    private final Receta receta1 = crearReceta(1L, "Pasta Carbonara", "Italiana", true);
+    private final Receta receta2 = crearReceta(2L, "Tacos", "Mexicana", false);
 
-    @BeforeEach
-    void setUp() {
-        receta1 = new Receta();
-        receta1.setId(1L);
-        receta1.setNombre("Pasta Carbonara");
-        receta1.setTipoCocina("Italiana");
-        receta1.setPopular(true);
-
-        receta2 = new Receta();
-        receta2.setId(2L);
-        receta2.setNombre("Tacos");
-        receta2.setTipoCocina("Mexicana");
-        receta2.setPopular(false);
+    private static Receta crearReceta(Long id, String nombre, String tipoCocina, boolean popular) {
+        Receta receta = new Receta();
+        receta.setId(id);
+        receta.setNombre(nombre);
+        receta.setTipoCocina(tipoCocina);
+        receta.setPopular(popular);
+        return receta;
     }
 
     @Test
