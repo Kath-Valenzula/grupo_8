@@ -1,0 +1,18 @@
+{
+  "html.validate.scripts": false,
+  "html.validate.styles": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.html": "html"
+  },
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "java.codeGeneration.hashCodeEquals.useJava7Objects": true,
+  "java.compile.nullAnalysis.nonnull": [],
+  "java.compile.nullAnalysis.nullable": [],
+  "java.completion.enabled": true,
+  "java.sources.organizeImports.staticStarThreshold": 99,
+  "java.sources.organizeImports.starThreshold": 99
+}

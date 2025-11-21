@@ -1,0 +1,32 @@
+/* Estilos personalizados para el proyecto frontend */
+
+/* Estilos de autenticación (login/register) */
+.auth-container {
+    min-height: 80vh;
+}
+
+.auth-card {
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Estilos de recetas */
+.recipe-card {
+    cursor: pointer;
+}
+
+.recipe-card-image {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.recipe-card-container {
+    max-width: 800px;
+}
+
+/* Estilos de home - imágenes de recetas */
+.home-recipe-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
