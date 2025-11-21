@@ -4,15 +4,15 @@ Aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21 LTS** para la
 
 ## 📋 Tabla de Contenidos
 
-- [Características](#características)
-- [Arquitectura](#arquitectura)
-- [Requisitos](#requisitos)
-- [Instalación y Configuración](#instalación-y-configuración)
-- [Ejecución](#ejecución)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Seguridad](#seguridad)
-- [Testing](#testing)
-- [Despliegue](#despliegue)
+- [✨ Características](#-características)
+- [🏗️ Arquitectura](#️-arquitectura)
+- [📦 Requisitos](#-requisitos)
+- [🚀 Instalación y Configuración](#-instalación-y-configuración)
+- [▶️ Ejecución](#️-ejecución)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🔒 Seguridad](#-seguridad)
+- [🧪 Testing](#-testing)
+- [🌐 Despliegue](#-despliegue)
 
 ## ✨ Características
 
@@ -38,7 +38,7 @@ Aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21 LTS** para la
 
 ### Arquitectura de Seguridad
 
-```
+```text
 Usuario → Thymeleaf (CSRF) → Spring Security (Session) → Controllers → Services → JPA → MySQL
                                      ↓
                             WebSecurityConfig
@@ -50,6 +50,7 @@ Usuario → Thymeleaf (CSRF) → Spring Security (Session) → Controllers → S
 ```
 
 **Características de Seguridad:**
+
 - Arquitectura **stateful** con gestión de sesiones HTTP
 - Cookies `JSESSIONID` con flags `HttpOnly`, `Secure` (prod), `SameSite=Strict`
 - Protección CSRF habilitada en todos los formularios POST
@@ -87,6 +88,7 @@ docker run -d \
 ```
 
 **Credenciales por defecto** (definidas en `Dockerfile`):
+
 - Usuario: `myuser`
 - Contraseña: `mypassword`
 - Base de datos: `mydatabase`
@@ -122,17 +124,18 @@ mvn clean package
 java -jar target/demo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 ```
 
-La aplicación estará disponible en: **http://localhost:8080**
+La aplicación estará disponible en: **<http://localhost:8080>**
 
 ### Usuarios por defecto
 
 Los usuarios se crean en `data.sql`. Ejemplo:
+
 - Usuario: `admin` / Contraseña: `admin123`
 - Usuario: `user` / Contraseña: `user123`
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 demo/
 ├── src/
 │   ├── main/
@@ -176,6 +179,7 @@ demo/
 ### Configuración de Spring Security
 
 - **Rutas públicas**: `/`, `/home`, `/recetas`, `/login`, `/register`, `/css/**`, `/js/**`, `/img/**`
+
 - **Rutas protegidas**: Todas las demás requieren autenticación
 - **Login**: Form-based login en `/login`
 - **Logout**: POST a `/logout` (invalida sesión y elimina cookie)
@@ -219,6 +223,7 @@ mvn clean test jacoco:report
 ### Tests implementados
 
 - ✅ **SecurityConfigTest**: Rutas públicas/privadas, login/logout, CSRF, headers de seguridad
+
 - ✅ **RecetaServiceTest**: CRUD de recetas, búsquedas, validaciones
 
 ## 🌐 Despliegue
@@ -260,7 +265,7 @@ volumes:
   mysql_data:
 ```
 
-2. Ejecutar:
+1. Ejecutar:
 
 ```bash
 docker-compose up -d
@@ -268,8 +273,9 @@ docker-compose up -d
 
 ### URL Pública
 
-**🔗 Acceso a la aplicación desplegada**: 
-```
+**🔗 Acceso a la aplicación desplegada**:
+
+```text
 http://[IP-DE-TU-VM]:8080/recetas
 ```
 

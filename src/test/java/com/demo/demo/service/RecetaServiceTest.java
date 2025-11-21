@@ -22,6 +22,7 @@ import com.demo.demo.models.Receta;
 import com.demo.demo.repository.RecetaRepository;
 
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("null")
 class RecetaServiceTest {
 
     @Mock
@@ -127,7 +128,8 @@ class RecetaServiceTest {
 
         // Assert
         assertEquals(1, result.size());
-        assertEquals("Pasta Carbonara", result.get(0).getNombre());
+        String nombre = result.get(0).getNombre();
+        assertEquals("Pasta Carbonara", nombre);
         verify(recetaRepository, times(1)).findByNombreContainingIgnoreCase("Pasta");
     }
 
