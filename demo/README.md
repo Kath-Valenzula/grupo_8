@@ -276,12 +276,19 @@ docker-compose up -d
 **🔗 Acceso a la aplicación desplegada**:
 
 ```text
-http://[IP-DE-TU-VM]:8080/recetas
+https://complementarily-foundrous-carmon.ngrok-free.dev/recetas
 ```
+
+> **Nota**: Esta URL pública está activa mediante ngrok. Para acceder:
+>
+> 1. Copia la URL completa
+> 2. Pégala en tu navegador
+> 3. Click en "Visit Site" (ngrok muestra una advertencia de seguridad la primera vez)
+> 4. ¡Disfruta de la aplicación!
 
 ### Video Demo
 
-**🎥 Demostración en video**: [Enlace al video en YouTube/Drive]
+**🎥 Demostración en video**: [Pendiente - Grabar después de verificar URL pública]
 
 ---
 
