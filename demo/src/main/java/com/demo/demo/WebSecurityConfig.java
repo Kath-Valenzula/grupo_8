@@ -37,10 +37,11 @@ public class WebSecurityConfig {
                 .frameOptions(frame -> frame.deny())
                 .xssProtection(xss -> xss.headerValue(org.springframework.security.web.header.writers.XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
                 .contentTypeOptions(contentTypeOptions -> {})
-                .httpStrictTransportSecurity(hsts -> hsts
-                    .maxAgeInSeconds(31536000)
-                    .includeSubDomains(true)
-                )
+                // HSTS deshabilitado temporalmente para ngrok
+                // .httpStrictTransportSecurity(hsts -> hsts
+                //     .maxAgeInSeconds(31536000)
+                //     .includeSubDomains(true)
+                // )
             )
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/login", "/register", "/css/**", "/js/**", "/img/**", "/h2-console/**").permitAll()
