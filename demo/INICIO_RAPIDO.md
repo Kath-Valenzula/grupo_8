@@ -65,7 +65,7 @@ ngrok http 8080
 
 Verás algo como esto:
 
-```
+```text
 Session Status                online
 Forwarding                    https://complementarily-foundrous-carmon.ngrok-free.dev -> http://localhost:8080
 ```
@@ -85,18 +85,21 @@ Forwarding                    https://complementarily-foundrous-carmon.ngrok-fre
 
 ## 🎯 Resumen de Comandos (Copia y Pega)
 
-### Terminal 1 (MySQL):
+### Terminal 1 (MySQL)
+
 ```powershell
 docker start mysql-container
 ```
 
-### Terminal 2 (Spring Boot):
+### Terminal 2 (Spring Boot)
+
 ```powershell
 cd "C:\Users\Kath Stark\sc-s2\sc-s2\demo"
 mvn spring-boot:run
 ```
 
-### Terminal 3 (ngrok):
+### Terminal 3 (ngrok)
+
 ```powershell
 ngrok http 8080
 ```
@@ -154,6 +157,7 @@ Si no funciona, reinstala ngrok ejecutando:
 **Causa**: ngrok se inició ANTES que la aplicación.
 
 **Solución**:
+
 1. Cierra la ventana de ngrok (Ctrl+C)
 2. Verifica que la app esté corriendo: `http://localhost:8080`
 3. Vuelve a ejecutar: `ngrok http 8080`
@@ -182,6 +186,7 @@ Cuando termines de trabajar, cierra en este orden:
 ### 🔑 Token de ngrok ya está configurado
 
 No necesitas volver a ejecutar:
+
 ```powershell
 ngrok config add-authtoken TU_TOKEN
 ```
@@ -192,7 +197,7 @@ Solo se hace UNA vez (ya está hecho).
 
 ## ✅ Checklist Visual
 
-```
+```text
 □ MySQL corriendo (docker ps)
 □ Aplicación Spring Boot iniciada (localhost:8080 responde)
 □ ngrok corriendo (ves "Session Status: online")
@@ -212,7 +217,7 @@ Solo se hace UNA vez (ya está hecho).
 
 ## 📞 Si Algo No Funciona
 
-### Verificar todo el estado:
+### Verificar todo el estado
 
 ```powershell
 # Ver MySQL

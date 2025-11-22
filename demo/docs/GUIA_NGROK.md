@@ -39,9 +39,11 @@ ngrok ya está instalado en: `C:\Users\Kath Stark\AppData\Local\ngrok`
    ```
 
    Ejemplo real:
+
    ```powershell
    ngrok config add-authtoken 2abc123XYZ_4def567UVW890ghi234JKL
    ```
+
 
 ---
 
@@ -61,7 +63,8 @@ mvn spring-boot:run
 ```
 
 **Espera** a ver el mensaje:
-```
+
+```text
 Started DemoApplication in X.XXX seconds
 ```
 
@@ -83,7 +86,7 @@ ngrok http 8080
 
 Verás una pantalla como esta:
 
-```
+```text
 ngrok
 
 Session Status                online
@@ -123,12 +126,14 @@ code README.md
 ```
 
 Busca la línea 262 que dice:
-```
+
+```text
 [IP-DE-TU-VM]
 ```
 
 Reemplázala con tu URL de ngrok:
-```
+
+```text
 https://abc123xyz.ngrok-free.app
 ```
 
