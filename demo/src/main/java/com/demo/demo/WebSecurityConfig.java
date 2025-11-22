@@ -35,7 +35,8 @@ public class WebSecurityConfig {
                         "default-src 'self'; " +
                         "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
                         "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
-                        "img-src 'self' data:; " +
+                        // se permiten imágenes externas (https) para las recetas
+                        "img-src 'self' data: https:; " +
                         "font-src 'self' https://cdn.jsdelivr.net; " +
                         "connect-src 'self'; " +
                         "frame-ancestors 'none'; " +
