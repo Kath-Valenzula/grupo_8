@@ -1,34 +1,34 @@
-# 🍴 Recetas Pro - Sistema de Gestión de Recetas
+# Recetas Pro - Sistema de Gestión de Recetas
 
 Aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21 LTS** para la gestión y consulta de recetas de cocina. Implementa autenticación basada en sesiones (stateful) con **Spring Security** y vistas dinámicas con **Thymeleaf**.
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
-- [✨ Características](#-características)
-- [🏗️ Arquitectura](#️-arquitectura)
-- [📦 Requisitos](#-requisitos)
-- [🚀 Instalación y Configuración](#-instalación-y-configuración)
-- [▶️ Ejecución](#️-ejecución)
-- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
-- [🔒 Seguridad](#-seguridad)
-- [🧪 Testing](#-testing)
-- [🌐 Despliegue](#-despliegue)
+- [Características](#características)
+- [Arquitectura](#arquitectura)
+- [Requisitos](#requisitos)
+- [Instalación y Configuración](#instalación-y-configuración)
+- [Ejecución](#ejecución)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Seguridad](#seguridad)
+- [Testing](#testing)
+- [Despliegue](#despliegue)
 
-## ✨ Características
+## Características
 
-- 🔐 **Autenticación y Autorización**: Sistema de registro/login con Spring Security + JWT para APIs
-- 📱 **Interfaz Responsive**: Diseño adaptable con Bootstrap 5
-- 🔍 **Búsqueda de Recetas**: Filtros por nombre, tipo de cocina, ingredientes, etc.
-- 💬 **Comentarios y Valoraciones**: Sistema de comentarios y rating (1-5 estrellas) protegido con JWT
-- 📸 **Multimedia**: Subir fotos y videos a recetas (API REST con autenticación)
-- 🔗 **Compartir en Redes Sociales**: Botones para compartir recetas en Facebook, Twitter/X y WhatsApp
-- ✅ **Validación de Formularios**: Bean Validation en backend + feedback visual en frontend
-- 🛡️ **Headers de Seguridad**: HSTS, CSP, XSS Protection, X-Content-Type-Options
-- 🍪 **Gestión de Sesiones**: Cookies seguras con HttpOnly y SameSite
-- 📊 **Cobertura de Código**: Integración con JaCoCo
-- 🔒 **Análisis de Vulnerabilidades**: OWASP Dependency Check
+- **Autenticación y Autorización**: Sistema de registro/login con Spring Security + JWT para APIs
+- **Interfaz Responsive**: Diseño adaptable con Bootstrap 5
+- **Búsqueda de Recetas**: Filtros por nombre, tipo de cocina, ingredientes, etc.
+- **Comentarios y Valoraciones**: Sistema de comentarios y rating (1-5 estrellas) protegido con JWT
+- **Multimedia**: Subir fotos y videos a recetas (API REST con autenticación)
+- **Compartir en Redes Sociales**: Botones para compartir recetas en Facebook, Twitter/X y WhatsApp
+- **Validación de Formularios**: Bean Validation en backend + feedback visual en frontend
+- **Headers de Seguridad**: HSTS, CSP, XSS Protection, X-Content-Type-Options
+- **Gestión de Sesiones**: Cookies seguras con HttpOnly y SameSite
+- **Cobertura de Código**: Integración con JaCoCo
+- **Análisis de Vulnerabilidades**: OWASP Dependency Check
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ### Stack Tecnológico
 
@@ -60,14 +60,14 @@ Usuario → Thymeleaf (CSRF) → Spring Security (Session) → Controllers → S
 - Contraseñas hasheadas con BCrypt
 - Headers de seguridad HTTP configurados (HSTS, CSP, XSS-Protection)
 
-## 📦 Requisitos
+## Requisitos
 
 - **Java**: 21 LTS o superior ([descargar](https://www.oracle.com/java/technologies/downloads/#java21))
 - **Maven**: 3.9+ ([descargar](https://maven.apache.org/download.cgi))
 - **Docker**: Para MySQL ([descargar](https://www.docker.com/))
 - **MySQL**: 8.0+ (puede ejecutarse con Docker)
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 ### 1. Clonar el repositorio
 
@@ -108,7 +108,7 @@ DB_USERNAME=myuser
 DB_PASSWORD=mypassword
 ```
 
-## ▶️ Ejecución
+## Ejecución
 
 ### Modo Desarrollo (con perfiles Spring)
 
@@ -136,7 +136,7 @@ Los usuarios se crean en `data.sql`. Ejemplo:
 - Usuario: `admin` / Contraseña: `admin123`
 - Usuario: `user` / Contraseña: `user123`
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```text
 demo/
@@ -177,7 +177,7 @@ demo/
 └── README.md
 ```
 
-## 🔒 Seguridad
+## Seguridad
 
 ### Configuración de Spring Security
 
@@ -207,7 +207,7 @@ mvn dependency-check:check
 # Ver reporte en: target/dependency-check-report.html
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Ejecutar todos los tests
 
@@ -225,10 +225,11 @@ mvn clean test jacoco:report
 
 ### Tests implementados
 
-- ✅ **SecurityConfigTest**: Rutas públicas/privadas, login/logout, CSRF, headers de seguridad
-- ✅ **RecetaServiceTest**: CRUD de recetas, búsquedas, validaciones
+- **SecurityConfigTest**: Rutas públicas/privadas, login/logout, CSRF, headers de seguridad
+- **SecurityConfigTest**: Rutas públicas/privadas, login/logout, CSRF, headers de seguridad
+- **RecetaServiceTest**: CRUD de recetas, búsquedas, validaciones
 
-### 🔌 Testing de APIs con Postman
+### Testing de APIs con Postman
 
 El proyecto incluye una colección de Postman (`New Collection.postman_collection.json`) con tests automatizados para todas las APIs protegidas con JWT.
 
@@ -246,12 +247,12 @@ El proyecto incluye una colección de Postman (`New Collection.postman_collectio
 
 **Requests disponibles:**
 
-- ✅ **Login JWT** → Autentica y guarda token (3 tests)
-- ✅ **Buscar Recetas** → Búsqueda pública sin autenticación
-- ✅ **Compartir Receta** → POST con JWT (3 tests: valida status 200, url, texto)
-- ✅ **Agregar Comentario** → POST con JWT (2 tests: acepta 200 ó 201 - idempotente)
-- ✅ **Valorar Receta** → POST con JWT (2 tests: valida rating 1-5)
-- ✅ **Agregar Multimedia** → POST con JWT (3 tests: valida url y tipo foto/video)
+- **Login JWT** → Autentica y guarda token (3 tests)
+- **Buscar Recetas** → Búsqueda pública sin autenticación
+- **Compartir Receta** → POST con JWT (3 tests: valida status 200, url, texto)
+- **Agregar Comentario** → POST con JWT (2 tests: acepta 200 ó 201 - idempotente)
+- **Valorar Receta** → POST con JWT (2 tests: valida rating 1-5)
+- **Agregar Multimedia** → POST con JWT (3 tests: valida url y tipo foto/video)
 
 **Tests idempotentes**: Los tests están diseñados para aceptar tanto código 200 (OK) como 201 (Created), permitiendo ejecutar la colección múltiples veces sin contaminar la base de datos con datos duplicados.
 
@@ -270,13 +271,13 @@ DELETE FROM comentario WHERE receta_id = 1;
   - El usuario `juanperez` exista con password `password123`
   - El hash BCrypt en `data.sql` sea: `$2a$10$kdPEx8CnOcZCEpJC8OK1ges/Flb11fDNYXNB01iRkyecGni6T0WTu`
 
-## 🌐 Despliegue
+## Despliegue
 
-### 🐳 Despliegue con Docker (Recomendado)
+### Despliegue con Docker (Recomendado)
 
 Este proyecto incluye configuración completa de Docker lista para producción.
 
-#### 📦 Archivos Docker Incluidos
+#### Archivos Docker Incluidos
 
 - `Dockerfile` - Imagen multi-stage optimizada de Spring Boot
 - `docker-compose.yml` - Orquestación de Spring Boot + MySQL
@@ -285,7 +286,7 @@ Este proyecto incluye configuración completa de Docker lista para producción.
 - `DEPLOYMENT.md` - Guía completa paso a paso
 - `.dockerignore` - Optimización del build
 
-#### 🚀 Despliegue Rápido en VM
+#### Despliegue Rápido en VM
 
 ```bash
 # 1. Clonar repositorio en la VM
@@ -298,18 +299,21 @@ sudo ./deploy.sh
 ```
 
 El script automáticamente:
-- ✅ Instala Docker y Docker Compose
-- ✅ Configura el firewall (puertos 80, 443, 22)
-- ✅ Construye las imágenes
-- ✅ Levanta MySQL + Spring Boot
-- ✅ Muestra la URL de acceso público
+- Instala Docker y Docker Compose
+- Configura el firewall (puertos 80, 443, 22)
+- Construye las imágenes
+- Levanta MySQL + Spring Boot
+- Muestra la URL de acceso público
+
+**URL de producción actual**: `http://149.112.142.245/recetas`
 
 **Acceso a la aplicación:**
 ```
-http://[IP_PUBLICA]/recetas
+http://149.112.142.245/recetas
 ```
 
-#### 🧪 Testing Local con Docker
+
+#### Testing Local con Docker
 
 Antes de desplegar en producción, prueba localmente:
 
@@ -328,7 +332,7 @@ docker compose restart
 docker compose down
 ```
 
-#### 📋 Requisitos de la VM
+#### Requisitos de la VM
 
 - **SO**: Ubuntu 20.04 LTS o superior
 - **RAM**: Mínimo 2GB (recomendado 4GB)
@@ -343,7 +347,7 @@ docker compose down
 - DigitalOcean Droplet
 - Oracle Cloud Always Free
 
-#### 📖 Documentación Completa
+#### Documentación Completa
 
 Ver **[DEPLOYMENT.md](./DEPLOYMENT.md)** para:
 - Configuración detallada de VM en AWS/Azure/GCP
@@ -356,7 +360,7 @@ Ver **[DEPLOYMENT.md](./DEPLOYMENT.md)** para:
 
 ---
 
-### 🖥️ Despliegue Tradicional (Sin Docker)
+### Despliegue Tradicional (Sin Docker)
 
 Si prefieres desplegar sin Docker, sigue estos pasos:
 
@@ -401,39 +405,31 @@ volumes:
 docker-compose up -d
 ```
 
-### URL Pública
+### URL Pública de Producción
 
-**🔗 Acceso a la aplicación desplegada**:
+**Acceso a la aplicación desplegada en Oracle Cloud**:
 
 ```text
-https://complementarily-foundrous-carmon.ngrok-free.dev/recetas
+http://149.112.142.245/recetas
 ```
 
-> **Nota**: Esta URL pública está activa mediante ngrok. Para acceder:
->
-> 1. Copia la URL completa
-> 2. Pégala en tu navegador
-> 3. Click en "Visit Site" (ngrok muestra una advertencia de seguridad la primera vez)
-> 4. ¡Disfruta de la aplicación!
-
-### Video Demo
-
-**🎥 Demostración en video**: [Pendiente - Grabar después de verificar URL pública]
+> **Nota**: Esta VM está desplegada en Oracle Cloud (Always Free tier) en la región de Santiago, Chile.
+> La IP es pública y permanente. Para más detalles técnicos, ver [`infra/VM_INFO.md`](./infra/VM_INFO.md).
 
 ---
 
-## 📝 Notas Adicionales
+## Notas Adicionales
 
 - **Perfil dev vs prod**: En desarrollo usa `secure=false` para cookies (HTTP local), en producción usa `secure=true` (HTTPS)
 - **Inicialización de BD**: En dev usa `ddl-auto=create` (recrea tablas), en prod usa `validate` (solo valida esquema)
 - **Logs**: En producción los logs están en nivel `WARN`, en desarrollo en `DEBUG`
 
-## 👥 Autores
+## Autores
 
 - Proyecto desarrollado para **ISY2202 - Seguridad y Calidad en el Desarrollo de Software**
-- **Institución**: [Tu institución]
+- **Institución**:DUOC UC
 - **Grupo**: 8
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es parte de una evaluación académica.
