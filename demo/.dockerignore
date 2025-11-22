@@ -1,0 +1,42 @@
+# Build artifacts
+target/
+!target/*.jar
+*.class
+*.log
+*.tmp
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Test files
+src/test/
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Postman
+*.postman_collection.json
+
+# Other
+*.swp
+*.swo
+*~
+.env.local

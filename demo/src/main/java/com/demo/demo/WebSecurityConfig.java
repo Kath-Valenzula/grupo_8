@@ -59,6 +59,8 @@ public class WebSecurityConfig {
                 // Rutas públicas de la aplicación web
                 .requestMatchers("/login", "/register", "/css/**", "/js/**", "/img/**", "/h2-console/**").permitAll()
                 .requestMatchers("/", "/home", "/recetas", "/recetas/buscar").permitAll()
+                // Actuator endpoints públicos (solo health)
+                .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 // Rutas públicas de la API REST
                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                 .requestMatchers("/api/recetas", "/api/recetas/**").permitAll() // Recetas públicas

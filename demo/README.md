@@ -272,9 +272,95 @@ DELETE FROM comentario WHERE receta_id = 1;
 
 ## 🌐 Despliegue
 
-### Despliegue en VM con Docker Compose
+### 🐳 Despliegue con Docker (Recomendado)
 
-1. Crear archivo `docker-compose.yml`:
+Este proyecto incluye configuración completa de Docker lista para producción.
+
+#### 📦 Archivos Docker Incluidos
+
+- `Dockerfile` - Imagen multi-stage optimizada de Spring Boot
+- `docker-compose.yml` - Orquestación de Spring Boot + MySQL
+- `deploy.sh` - Script automatizado de despliegue en VM Linux
+- `test-docker.sh` - Script de prueba local
+- `DEPLOYMENT.md` - Guía completa paso a paso
+- `.dockerignore` - Optimización del build
+
+#### 🚀 Despliegue Rápido en VM
+
+```bash
+# 1. Clonar repositorio en la VM
+git clone https://github.com/Kath-Valenzula/grupo_8.git
+cd grupo_8/sc-s2/demo
+
+# 2. Ejecutar script de despliegue automatizado
+chmod +x deploy.sh
+sudo ./deploy.sh
+```
+
+El script automáticamente:
+- ✅ Instala Docker y Docker Compose
+- ✅ Configura el firewall (puertos 80, 443, 22)
+- ✅ Construye las imágenes
+- ✅ Levanta MySQL + Spring Boot
+- ✅ Muestra la URL de acceso público
+
+**Acceso a la aplicación:**
+```
+http://[IP_PUBLICA]/recetas
+```
+
+#### 🧪 Testing Local con Docker
+
+Antes de desplegar en producción, prueba localmente:
+
+```bash
+# Ejecutar tests locales
+chmod +x test-docker.sh
+./test-docker.sh
+
+# Ver logs en tiempo real
+docker compose logs -f app
+
+# Reiniciar servicios
+docker compose restart
+
+# Detener servicios
+docker compose down
+```
+
+#### 📋 Requisitos de la VM
+
+- **SO**: Ubuntu 20.04 LTS o superior
+- **RAM**: Mínimo 2GB (recomendado 4GB)
+- **CPU**: Mínimo 2 cores
+- **Disco**: Mínimo 20GB
+- **Red**: IP pública con puertos 80, 443, 22 abiertos
+
+**Proveedores recomendados:**
+- AWS EC2 (t2.medium)
+- Azure VM (Standard B2s)
+- Google Cloud (e2-medium)
+- DigitalOcean Droplet
+- Oracle Cloud Always Free
+
+#### 📖 Documentación Completa
+
+Ver **[DEPLOYMENT.md](./DEPLOYMENT.md)** para:
+- Configuración detallada de VM en AWS/Azure/GCP
+- Configuración de Security Groups y firewall
+- Despliegue manual paso a paso
+- Configuración SSL/HTTPS con Let's Encrypt
+- Troubleshooting y solución de problemas
+- Comandos útiles de Docker
+- Configuración de backups automáticos
+
+---
+
+### 🖥️ Despliegue Tradicional (Sin Docker)
+
+Si prefieres desplegar sin Docker, sigue estos pasos:
+
+1. Instalar MySQL y crear base de datos:
 
 ```yaml
 version: '3.8'
