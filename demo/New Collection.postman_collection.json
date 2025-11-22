@@ -1,4 +1,4 @@
-{
+																																																																																																																																																																																																																																																																																																																																																{
 	"info": {
 		"_postman_id": "f352dc72-2cec-41a8-85ce-406d60098b60",
 		"name": "New Collection",
@@ -7,13 +7,37 @@
 	},
 	"item": [
 		{
-			"name": "login",
+			"name": "Login JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.token).to.be.a('string');",
+							"    pm.collectionVariables.set(\"jwt_token\", jsonData.token);",
+							"});",
+							"",
+							"pm.test(\"Response has username\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"juanperez\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"juanperez\",\n    \"password\":\"123456\"\n}",
+					"raw": "{\n    \"username\": \"juanperez\",\n    \"password\": \"password123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,13 +45,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/login",
+					"raw": "http://localhost:8080/api/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"auth",
 						"login"
 					]
 				}
@@ -113,6 +139,243 @@
 							"key": "nombre",
 							"value": "Spaghetti Carbonara"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compartir Receta (JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has url field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.url).to.include('/recetas/detalle/');",
+							"});",
+							"",
+							"pm.test(\"Response has texto field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.texto).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/recetas/1/compartir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recetas",
+						"1",
+						"compartir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Comentario (JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 or 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"",
+							"pm.test(\"Response has texto field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.texto).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"texto\": \"¡Excelente receta! La preparé anoche y quedó deliciosa.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recetas/1/comentarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recetas",
+						"1",
+						"comentarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valorar Receta (JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 or 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"",
+							"pm.test(\"Response has rating field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.rating).to.be.within(1, 5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"rating\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recetas/1/valoraciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recetas",
+						"1",
+						"valoraciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Multimedia (JWT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 or 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							"",
+							"pm.test(\"Response has url field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.url).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Tipo is foto or video\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.tipo).to.be.oneOf(['foto', 'video']);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"url\": \"https://ejemplo.com/foto-receta.jpg\",\n  \"tipo\": \"foto\",\n  \"descripcion\": \"Foto del plato terminado\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/recetas/1/multimedia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"recetas",
+						"1",
+						"multimedia"
 					]
 				}
 			},

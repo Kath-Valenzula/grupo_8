@@ -189,6 +189,48 @@ public class RecetaFuncionesPrivadasController {
         Multimedia multimediaGuardado = multimediaRepository.save(multimedia);
         return ResponseEntity.status(HttpStatus.CREATED).body(multimediaGuardado);
     }
+
+    // ============= COMPARTIR RECETAS =============
+
+    /**
+     * POST /api/recetas/{id}/compartir
+     * Genera enlaces para compartir una receta en redes sociales (requiere JWT)
+     */
+    @PostMapping("/{id}/compartir")
+    public ResponseEntity<?> compartirReceta(@PathVariable Long id,
+                                              Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Debe autenticarse para compartir recetas");
+        }
+
+        var recetaOpt = recetaService.obtenerPorId(id);
+        if (recetaOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Receta no encontrada");
+        }
+        
+        Receta receta = recetaOpt.get();
+        
+        // URL pública de la receta (ajustar según tu dominio de producción)
+        String baseUrl = "http://localhost:8080"; // Cambiar a URL pública en producción
+        String recetaUrl = baseUrl + "/recetas/detalle/" + id;
+        
+        // Texto pre-formateado para compartir
+        String textoCompartir = "¡Mira esta receta de " + receta.getNombre() + "! 🍽️";
+        
+        // Usar imagen por defecto si no existe
+        String imagenUrl = receta.getImagenUrl() != null ? receta.getImagenUrl() : "/img/default-recipe.jpg";
+        
+        CompartirResponse response = new CompartirResponse(
+            recetaUrl,
+            textoCompartir,
+            receta.getNombre(),
+            imagenUrl
+        );
+        
+        return ResponseEntity.ok(response);
+    }
     
     /**
      * Clase interna para respuesta de valoraciones
@@ -214,6 +256,39 @@ public class RecetaFuncionesPrivadasController {
         
         public Integer getTotalValoraciones() {
             return totalValoraciones;
+        }
+    }
+
+    /**
+     * Clase interna para respuesta de compartir receta
+     */
+    public static class CompartirResponse {
+        private final String url;
+        private final String texto;
+        private final String titulo;
+        private final String imagenUrl;
+        
+        public CompartirResponse(String url, String texto, String titulo, String imagenUrl) {
+            this.url = url;
+            this.texto = texto;
+            this.titulo = titulo;
+            this.imagenUrl = imagenUrl;
+        }
+        
+        public String getUrl() {
+            return url;
+        }
+        
+        public String getTexto() {
+            return texto;
+        }
+        
+        public String getTitulo() {
+            return titulo;
+        }
+        
+        public String getImagenUrl() {
+            return imagenUrl;
         }
     }
 }

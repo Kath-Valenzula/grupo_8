@@ -1,12 +1,13 @@
 
+-- BCrypt hash for 'password123' - Generado con BCryptPasswordEncoder
 INSERT INTO users (email, password, username)
-VALUES ('juan.perez@example.com', '$2a$10$wRfZ99gV3psUtydNY/d.huptK4ajBn.a9rMxjPb76Wi2FJbYmBwwC', 'juanperez');
+VALUES ('juan.perez@example.com', '$2a$10$kdPEx8CnOcZCEpJC8OK1ges/Flb11fDNYXNB01iRkyecGni6T0WTu', 'juanperez');
 
 INSERT INTO users (email, password, username)
-VALUES ('maria.gonzalez@example.com', '$2a$10$wRfZ99gV3psUtydNY/d.huptK4ajBn.a9rMxjPb76Wi2FJbYmBwwC', 'mariagonzalez');
+VALUES ('maria.gonzalez@example.com', '$2a$10$kdPEx8CnOcZCEpJC8OK1ges/Flb11fDNYXNB01iRkyecGni6T0WTu', 'mariagonzalez');
 
 INSERT INTO users (email, password, username)
-VALUES ('se.valdivia@duocuc.cl', '$2a$10$wRfZ99gV3psUtydNY/d.huptK4ajBn.a9rMxjPb76Wi2FJbYmBwwC', 'se.valdivia');
+VALUES ('se.valdivia@duocuc.cl', '$2a$10$kdPEx8CnOcZCEpJC8OK1ges/Flb11fDNYXNB01iRkyecGni6T0WTu', 'se.valdivia');
 
 
 INSERT INTO recetas (nombre, tipo_cocina, ingredientes, pais_origen, dificultad, tiempo_coccion, instrucciones, imagen_url, popular)

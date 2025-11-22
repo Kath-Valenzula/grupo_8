@@ -1,0 +1,291 @@
+{
+	"id": "7934b0fa-9ec1-4344-a5d4-fab203b97efc",
+	"name": "New Collection",
+	"timestamp": "2025-11-22T19:52:25.251Z",
+	"collection_id": "45172943-e53c5e8b-53a5-421f-916e-2d1ae218d9f5",
+	"folder_id": 0,
+	"environment_id": "45172943-facbd963-ebce-49ab-b1e8-370564d50aef",
+	"totalPass": 13,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-11-22T19:52:22.837Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "eaede456-5b49-4603-ae48-3011151820dc",
+			"name": "Login JWT",
+			"url": "http://localhost:8080/api/auth/login",
+			"time": 94,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true,
+				"Response has username": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has username": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				94
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true,
+					"Response has username": true
+				}
+			]
+		},
+		{
+			"id": "f58331be-cb9a-4777-9927-7411ac41a3e4",
+			"name": "greetings",
+			"url": "http://localhost:8080/greetings",
+			"time": 441,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				441
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "cdba9ef2-4590-4d6f-bdf9-19182741ee51",
+			"name": "register",
+			"url": "http://localhost:8080/register",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				10
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "85ccffb1-63b8-41ec-9f2d-85ea5198652d",
+			"name": "Buscar recetas",
+			"url": "http://localhost:8080/api/recetas/buscar?nombre=Spaghetti Carbonara",
+			"time": 48,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				48
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "9da5919a-19b4-4509-ae5f-2ad73b5e7264",
+			"name": "Compartir Receta (JWT)",
+			"url": "http://localhost:8080/api/recetas/1/compartir",
+			"time": 111,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has url field": true,
+				"Response has texto field": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has url field": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has texto field": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				111
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has url field": true,
+					"Response has texto field": true
+				}
+			]
+		},
+		{
+			"id": "e3e171a3-b8fa-4552-9cfa-289d47a8a1b0",
+			"name": "Agregar Comentario (JWT)",
+			"url": "http://localhost:8080/api/recetas/1/comentarios",
+			"time": 162,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response has texto field": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has texto field": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				162
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response has texto field": true
+				}
+			]
+		},
+		{
+			"id": "92fc2491-59bf-4445-bb3c-c465d51d49d2",
+			"name": "Valorar Receta (JWT)",
+			"url": "http://localhost:8080/api/recetas/1/valoraciones",
+			"time": 297,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response has rating field": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has rating field": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				297
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response has rating field": true
+				}
+			]
+		},
+		{
+			"id": "00d1e123-a2dc-4748-b9c3-2ca177d1f2cb",
+			"name": "Agregar Multimedia (JWT)",
+			"url": "http://localhost:8080/api/recetas/1/multimedia",
+			"time": 179,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 200 or 201": true,
+				"Response has url field": true,
+				"Tipo is foto or video": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has url field": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Tipo is foto or video": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				179
+			],
+			"allTests": [
+				{
+					"Status code is 200 or 201": true,
+					"Response has url field": true,
+					"Tipo is foto or video": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1342,
+	"collection": {
+		"requests": [
+			{
+				"id": "eaede456-5b49-4603-ae48-3011151820dc",
+				"method": "POST"
+			},
+			{
+				"id": "f58331be-cb9a-4777-9927-7411ac41a3e4",
+				"method": "POST"
+			},
+			{
+				"id": "cdba9ef2-4590-4d6f-bdf9-19182741ee51",
+				"method": "POST"
+			},
+			{
+				"id": "85ccffb1-63b8-41ec-9f2d-85ea5198652d",
+				"method": "GET"
+			},
+			{
+				"id": "9da5919a-19b4-4509-ae5f-2ad73b5e7264",
+				"method": "POST"
+			},
+			{
+				"id": "e3e171a3-b8fa-4552-9cfa-289d47a8a1b0",
+				"method": "POST"
+			},
+			{
+				"id": "92fc2491-59bf-4445-bb3c-c465d51d49d2",
+				"method": "POST"
+			},
+			{
+				"id": "00d1e123-a2dc-4748-b9c3-2ca177d1f2cb",
+				"method": "POST"
+			}
+		]
+	}
+}

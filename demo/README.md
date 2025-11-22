@@ -16,9 +16,12 @@ Aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21 LTS** para la
 
 ## ✨ Características
 
-- 🔐 **Autenticación y Autorización**: Sistema de registro/login con Spring Security
+- 🔐 **Autenticación y Autorización**: Sistema de registro/login con Spring Security + JWT para APIs
 - 📱 **Interfaz Responsive**: Diseño adaptable con Bootstrap 5
 - 🔍 **Búsqueda de Recetas**: Filtros por nombre, tipo de cocina, ingredientes, etc.
+- 💬 **Comentarios y Valoraciones**: Sistema de comentarios y rating (1-5 estrellas) protegido con JWT
+- 📸 **Multimedia**: Subir fotos y videos a recetas (API REST con autenticación)
+- 🔗 **Compartir en Redes Sociales**: Botones para compartir recetas en Facebook, Twitter/X y WhatsApp
 - ✅ **Validación de Formularios**: Bean Validation en backend + feedback visual en frontend
 - 🛡️ **Headers de Seguridad**: HSTS, CSP, XSS Protection, X-Content-Type-Options
 - 🍪 **Gestión de Sesiones**: Cookies seguras con HttpOnly y SameSite
@@ -223,8 +226,49 @@ mvn clean test jacoco:report
 ### Tests implementados
 
 - ✅ **SecurityConfigTest**: Rutas públicas/privadas, login/logout, CSRF, headers de seguridad
-
 - ✅ **RecetaServiceTest**: CRUD de recetas, búsquedas, validaciones
+
+### 🔌 Testing de APIs con Postman
+
+El proyecto incluye una colección de Postman (`New Collection.postman_collection.json`) con tests automatizados para todas las APIs protegidas con JWT.
+
+**Credenciales de prueba:**
+
+- **Usuario**: `juanperez`
+- **Password**: `password123`
+
+**Ejecutar tests en Postman:**
+
+1. Importar la colección `New Collection.postman_collection.json` en Postman
+2. Ejecutar **"Login JWT"** primero - esto genera y guarda automáticamente el token en `{{jwt_token}}`
+3. Ejecutar el resto de requests - todos usan el token guardado automáticamente
+4. Ver resultados de tests en la pestaña "Test Results"
+
+**Requests disponibles:**
+
+- ✅ **Login JWT** → Autentica y guarda token (3 tests)
+- ✅ **Buscar Recetas** → Búsqueda pública sin autenticación
+- ✅ **Compartir Receta** → POST con JWT (3 tests: valida status 200, url, texto)
+- ✅ **Agregar Comentario** → POST con JWT (2 tests: acepta 200 ó 201 - idempotente)
+- ✅ **Valorar Receta** → POST con JWT (2 tests: valida rating 1-5)
+- ✅ **Agregar Multimedia** → POST con JWT (3 tests: valida url y tipo foto/video)
+
+**Tests idempotentes**: Los tests están diseñados para aceptar tanto código 200 (OK) como 201 (Created), permitiendo ejecutar la colección múltiples veces sin contaminar la base de datos con datos duplicados.
+
+**Limpieza manual (opcional)**:
+
+```sql
+DELETE FROM multimedia WHERE receta_id = 1;
+DELETE FROM valoracion WHERE receta_id = 1;
+DELETE FROM comentario WHERE receta_id = 1;
+```
+
+**Troubleshooting:**
+
+- Si el login falla (401), verifica que:
+  - La aplicación esté corriendo en `http://localhost:8080`
+  - El usuario `juanperez` exista con password `password123`
+  - El hash BCrypt en `data.sql` sea: `$2a$10$kdPEx8CnOcZCEpJC8OK1ges/Flb11fDNYXNB01iRkyecGni6T0WTu`
 
 ## 🌐 Despliegue
 

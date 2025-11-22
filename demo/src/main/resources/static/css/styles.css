@@ -1,0 +1,9 @@
+/* Utility classes */
+.d-none {
+  display: none !important;
+}
+
+/* Alert animations */
+.alert-copiar {
+  transition: opacity 0.3s ease-in-out;
+}
