@@ -1,6 +1,3 @@
-# Configuración de metadatos de Spring Boot para propiedades personalizadas
-# Esto elimina los warnings "unknown property" en application.properties
-
 {
   "properties": [
     {
@@ -11,7 +8,7 @@
     {
       "name": "jwt.expiration",
       "type": "java.lang.Long",
-      "description": "Tiempo de expiración del token JWT en milisegundos (por defecto 24 horas)"
+      "description": "Tiempo de expiracion del token JWT en milisegundos (por defecto 24 horas)"
     }
   ]
 }

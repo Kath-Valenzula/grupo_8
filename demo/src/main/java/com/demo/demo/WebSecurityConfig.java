@@ -34,10 +34,12 @@ public class WebSecurityConfig {
                     .policyDirectives(
                         "default-src 'self'; " +
                         "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
-                        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
-                        // se permiten imágenes externas (https) para las recetas
-                        "img-src 'self' data: https:; " +
-                        "font-src 'self' https://cdn.jsdelivr.net; " +
+                        // permitir CSS de jsdelivr y Google Fonts
+                        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; " +
+                        // permitir imágenes externas (http/https) para recetas
+                        "img-src 'self' data: https: http:; " +
+                        // permitir fuentes externas (jsdelivr + gstatic) y data URIs
+                        "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com data:; " +
                         "connect-src 'self'; " +
                         "frame-ancestors 'none'; " +
                         "base-uri 'self'; " +
