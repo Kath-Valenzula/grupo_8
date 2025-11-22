@@ -1,0 +1,17 @@
+# Configuración de metadatos de Spring Boot para propiedades personalizadas
+# Esto elimina los warnings "unknown property" en application.properties
+
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Clave secreta para firmar tokens JWT (Base64 encoded)"
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.Long",
+      "description": "Tiempo de expiración del token JWT en milisegundos (por defecto 24 horas)"
+    }
+  ]
+}

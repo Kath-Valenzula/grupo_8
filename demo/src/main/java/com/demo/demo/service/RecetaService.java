@@ -51,4 +51,9 @@ public class RecetaService {
             return recetaRepository.findByDificultadContainingIgnoreCase(dificultad);
         return recetaRepository.findAll();
     }
+
+    @SuppressWarnings("null")
+    public void eliminarReceta(Long id) {
+        recetaRepository.deleteById(id);
+    }
 }
