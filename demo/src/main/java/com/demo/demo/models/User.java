@@ -22,6 +22,8 @@ import jakarta.validation.constraints.Size;
     @UniqueConstraint(name = "UK_USUARIO_EMAIL",columnNames = "EMAIL"),        
 })
 public class User implements UserDetails {
+  private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Integer id;
