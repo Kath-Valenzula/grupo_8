@@ -31,6 +31,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, 
                                     @NonNull HttpServletResponse response, 
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+        
+        // Ignorar el filtro JWT para rutas de login/register (autenticación con formulario)
+        String path = request.getRequestURI();
+        if (path.equals("/login") || path.equals("/register") || 
+            path.startsWith("/css/") || path.startsWith("/js/") || 
+            path.startsWith("/img/") || path.equals("/") || 
+            path.equals("/home") || path.equals("/recetas") || 
+            path.startsWith("/recetas/buscar")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
         try {
             String jwt = getJwtFromRequest(request);
 
