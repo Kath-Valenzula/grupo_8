@@ -4,8 +4,5 @@ nixPkgs = ['maven', 'jdk21']
 [phases.build]
 cmds = ['cd demo && mvn clean package -DskipTests']
 
-[phases.install]
-dependsOn = ['build']
-
 [start]
 cmd = 'java -jar demo/target/demo-0.0.1-SNAPSHOT.jar'
