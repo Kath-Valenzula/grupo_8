@@ -14,7 +14,15 @@
     <div class="card shadow p-4 auth-card">
       <h3 class="text-center text-success mb-4">Registro de usuario</h3>
       
-      <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+      <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      
+      <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       
       <form th:action="@{/register}" th:object="${user}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

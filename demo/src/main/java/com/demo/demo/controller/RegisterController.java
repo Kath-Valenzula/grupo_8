@@ -34,18 +34,28 @@ public class RegisterController {
                           BindingResult result, 
                           Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("error", "Por favor corrige los errores en el formulario");
             return "register";
         }
         
+        // Validar que el usuario no exista
         if (userRepository.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("error", "El usuario ya existe");
+            model.addAttribute("error", "El nombre de usuario ya está en uso");
             return "register";
         }
         
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        
-        model.addAttribute("success", "Usuario registrado exitosamente");
-        return "redirect:/login?registered=true";
+        try {
+            // Encriptar la contraseña antes de guardar
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            
+            // Guardar el usuario en la base de datos
+            userRepository.save(user);
+            
+            // Redirigir al login con mensaje de éxito
+            return "redirect:/login?registered=true";
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al registrar el usuario: " + e.getMessage());
+            return "register";
+        }
     }
 }
