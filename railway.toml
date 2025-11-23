@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "java -jar target/demo-0.0.1-SNAPSHOT.jar"
+healthcheckPath = "/actuator/health"
+healthcheckTimeout = 300
