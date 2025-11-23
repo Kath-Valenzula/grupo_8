@@ -24,8 +24,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Agregar filtro JWT antes del filtro de autenticación por usuario/contraseña
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            // JWT filter desactivado temporalmente para usar solo autenticación con formulario
+            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**", "/api/**") // Deshabilitar CSRF para APIs REST
             )
