@@ -25,22 +25,27 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .authenticationManager(authenticationManager(http))
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/", "/home", "/login","/js/**", "/css/**", "/img/**","/recetas","/register").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
                 .loginPage("/login")
+                .defaultSuccessUrl("/recetas", true)
                 .failureHandler((request, response, exception) -> {
-                response.sendRedirect("/login?error=true");
-            })
+                    System.out.println("=== LOGIN FALLIDO ===");
+                    System.out.println("Exception: " + exception.getMessage());
+                    exception.printStackTrace();
+                    response.sendRedirect("/login?error=true");
+                })
                 .permitAll()
             )
             .logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login?logout=true")
-            .permitAll()
-);
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
+                .permitAll()
+            );
         return http.build();
     }
     

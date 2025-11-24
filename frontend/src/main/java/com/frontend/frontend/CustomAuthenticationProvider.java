@@ -40,6 +40,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
+        System.out.println("=== INICIANDO AUTENTICACIÓN ===");
+        System.out.println("Usuario: " + name);
+        System.out.println("Backend URL: " + backendBaseUrl + "/api/auth/login");
+
         String token;
 
         try {
@@ -52,18 +56,24 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 headers
             );
 
+            System.out.println("Enviando request al backend...");
             final var responseEntity = restTemplate.postForEntity(
                 backendBaseUrl + "/api/auth/login",
                 entity,
                 LoginResponse.class
             );
 
+            System.out.println("Response status: " + responseEntity.getStatusCode());
             final LoginResponse body = responseEntity.getBody();
             if (body == null || body.getToken() == null || body.getToken().isBlank()) {
+                System.out.println("ERROR: Respuesta de login incompleta");
                 throw new BadCredentialsException("Respuesta de login incompleta");
             }
             token = body.getToken();
+            System.out.println("Token recibido: " + token.substring(0, Math.min(20, token.length())) + "...");
         } catch (RestClientException ex) {
+            System.out.println("ERROR en autenticación: " + ex.getMessage());
+            ex.printStackTrace();
             throw new BadCredentialsException("No se pudo autenticar: " + ex.getMessage());
         }
 
