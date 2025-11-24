@@ -1,102 +1,58 @@
-# Recetas Pro - Sistema de Gestión de Recetas
+# Backend - API de Recetas
 
-Aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21 LTS** para la gestión y consulta de recetas de cocina. Implementa autenticación basada en sesiones (stateful) con **Spring Security** y vistas dinámicas con **Thymeleaf**.
-
-## Tabla de Contenidos
-
-- [Características](#características)
-- [Arquitectura](#arquitectura)
-- [Requisitos](#requisitos)
-- [Instalación y Configuración](#instalación-y-configuración)
-- [Ejecución](#ejecución)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Seguridad](#seguridad)
-- [Testing](#testing)
-- [Despliegue](#despliegue)
+API REST desarrollada con Spring Boot 3.5.8 y Java 21 para gestión de recetas.
 
 ## Características
 
-- **Autenticación y Autorización**: Sistema de registro/login con Spring Security + JWT para APIs
-- **Interfaz Responsive**: Diseño adaptable con Bootstrap 5
-- **Búsqueda de Recetas**: Filtros por nombre, tipo de cocina, ingredientes, etc.
-- **Comentarios y Valoraciones**: Sistema de comentarios y rating (1-5 estrellas) protegido con JWT
-- **Multimedia**: Subir fotos y videos a recetas (API REST con autenticación)
-- **Compartir en Redes Sociales**: Botones para compartir recetas en Facebook, Twitter/X y WhatsApp
-- **Validación de Formularios**: Bean Validation en backend + feedback visual en frontend
-- **Headers de Seguridad**: HSTS, CSP, XSS Protection, X-Content-Type-Options
-- **Gestión de Sesiones**: Cookies seguras con HttpOnly y SameSite
-- **Cobertura de Código**: Integración con JaCoCo
-- **Análisis de Vulnerabilidades**: OWASP Dependency Check
-
-## Arquitectura
-
-### Stack Tecnológico
-
-- **Backend**: Spring Boot 3.5.8 (Spring MVC, Spring Security, Spring Data JPA)
-- **Frontend**: Thymeleaf + Bootstrap 5 + JavaScript
-- **Base de Datos**: MySQL 8.0
-- **Autenticación**: Basada en sesiones (JSESSIONID) - **NO JWT**
-- **Build Tool**: Maven 3.9+
-- **Java**: 21 LTS
-
-### Arquitectura de Seguridad
-
-```text
-Usuario → Thymeleaf (CSRF) → Spring Security (Session) → Controllers → Services → JPA → MySQL
-                                     ↓
-                            WebSecurityConfig
-                                     ↓
-                          - Form Login (stateful)
-                          - Session Management
-                          - Security Headers
-                          - CSRF Protection
-```
-
-**Características de Seguridad:**
-
-- Arquitectura **stateful** con gestión de sesiones HTTP
-- Cookies `JSESSIONID` con flags `HttpOnly`, `Secure` (prod), `SameSite=Strict`
-- Protección CSRF habilitada en todos los formularios POST
-- Contraseñas hasheadas con BCrypt
-- Headers de seguridad HTTP configurados (HSTS, CSP, XSS-Protection)
+- API REST con autenticación JWT
+- Endpoints para recetas, comentarios y valoraciones
+- Base de datos MySQL
+- Spring Security para autenticación
+- Spring Data JPA para persistencia
 
 ## Requisitos
 
-- **Java**: 21 LTS o superior ([descargar](https://www.oracle.com/java/technologies/downloads/#java21))
-- **Maven**: 3.9+ ([descargar](https://maven.apache.org/download.cgi))
-- **Docker**: Para MySQL ([descargar](https://www.docker.com/))
-- **MySQL**: 8.0+ (puede ejecutarse con Docker)
+- Java 21
+- Maven 3.9+
+- MySQL 8.0
 
-## Instalación y Configuración
-
-### 1. Clonar el repositorio
+## Ejecución Local
 
 ```bash
-git clone https://github.com/Kath-Valenzula/grupo_8.git
-cd grupo_8/demo
+# Compilar el proyecto
+mvn clean package
+
+# Ejecutar
+mvn spring-boot:run
 ```
 
-### 2. Configurar Base de Datos MySQL con Docker
+La API estará disponible en `http://localhost:8080`
+
+## Ejecución en Servidor
+
+Usar el script `start-backend.sh` que configura las variables de entorno necesarias:
 
 ```bash
-# Construir imagen de MySQL
-docker build -t my-mysql-db .
-
-# Ejecutar contenedor
-docker run -d \
-  --name mysql-container \
-  -p 3306:3306 \
-  -p 33060:33060 \
-  my-mysql-db
+./start-backend.sh
 ```
 
-**Credenciales por defecto** (definidas en `Dockerfile`):
+## Endpoints Principales
 
-- Usuario: `myuser`
-- Contraseña: `mypassword`
-- Base de datos: `mydatabase`
+- `POST /api/auth/login` - Login de usuarios
+- `POST /api/auth/register` - Registro de usuarios
+- `GET /api/recetas` - Listar recetas (público)
+- `POST /api/recetas` - Crear receta (requiere JWT)
+- `GET /api/recetas/{id}` - Ver detalle de receta
 
-### 3. Configurar Variables de Entorno (Opcional)
+## Base de Datos
+
+Configurar en `application-prod.properties`:
+
+- Host: localhost
+- Puerto: 3306
+- Base de datos: mydatabase
+- Usuario: recetas_user
+- Contraseña: (configurar en variables de entorno)
 
 Crear archivo `.env` en la raíz del proyecto (ya está en `.gitignore`):
 
