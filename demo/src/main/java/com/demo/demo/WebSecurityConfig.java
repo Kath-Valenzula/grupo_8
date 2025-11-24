@@ -1,8 +1,8 @@
 package com.demo.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,14 +18,16 @@ import com.demo.demo.security.JwtAuthenticationFilter;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public WebSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // JWT filter desactivado temporalmente para usar solo autenticación con formulario
-            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/h2-console/**", "/api/**") // Deshabilitar CSRF para APIs REST
             )
@@ -34,11 +36,8 @@ public class WebSecurityConfig {
                     .policyDirectives(
                         "default-src 'self'; " +
                         "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
-                        // permitir CSS de jsdelivr y Google Fonts
                         "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; " +
-                        // permitir imágenes externas (http/https) para recetas
                         "img-src 'self' data: https: http:; " +
-                        // permitir fuentes externas (jsdelivr + gstatic) y data URIs
                         "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com data:; " +
                         "connect-src 'self'; " +
                         "frame-ancestors 'none'; " +
@@ -49,24 +48,21 @@ public class WebSecurityConfig {
                 .frameOptions(frame -> frame.deny())
                 .xssProtection(xss -> xss.headerValue(org.springframework.security.web.header.writers.XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
                 .contentTypeOptions(contentTypeOptions -> {})
-                // HSTS deshabilitado temporalmente para ngrok
-                // .httpStrictTransportSecurity(hsts -> hsts
-                //     .maxAgeInSeconds(31536000)
-                //     .includeSubDomains(true)
-                // )
             )
             .authorizeHttpRequests(authz -> authz
                 // Rutas públicas de la aplicación web
                 .requestMatchers("/login", "/register", "/css/**", "/js/**", "/img/**", "/h2-console/**").permitAll()
                 .requestMatchers("/", "/home", "/recetas", "/recetas/buscar").permitAll()
-                // Actuator endpoints públicos (solo health)
+                // Actuator endpoints públicos (solo health/info)
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 // Rutas públicas de la API REST
                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                .requestMatchers("/api/recetas", "/api/recetas/**").permitAll() // Recetas públicas
-                // Todas las demás rutas de API requieren autenticación con JWT
+                // GET recetas público; resto requiere JWT
+                .requestMatchers(HttpMethod.GET, "/api/recetas/**").permitAll()
+                .requestMatchers("/api/recetas/**").authenticated()
+                .requestMatchers("/api/comentarios/**", "/api/valoraciones/**", "/api/multimedia/**").authenticated()
                 .requestMatchers("/api/**").authenticated()
-                // Todas las demás rutas web requieren autenticación con sesión
+                // Todas las demás rutas web requieren sesión
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -101,16 +97,5 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
-    }
-    
-    @Bean
-    public org.springframework.security.authentication.AuthenticationProvider authenticationProvider(
-            @Autowired com.demo.demo.service.MyUserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
-        org.springframework.security.authentication.dao.DaoAuthenticationProvider authProvider = 
-            new org.springframework.security.authentication.dao.DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
     }
 }

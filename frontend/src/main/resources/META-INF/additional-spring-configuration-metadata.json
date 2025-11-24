@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "backend.api.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL del backend para consumir APIs JWT.",
+      "defaultValue": "http://localhost:8080"
+    }
+  ]
+}

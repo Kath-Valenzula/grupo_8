@@ -18,6 +18,7 @@ public class DataInitializer {
     private static final Logger logger = LoggerFactory.getLogger(DataInitializer.class);
 
     @Bean
+    @SuppressWarnings("unused")
     CommandLineRunner initDatabase(UserRepository userRepository, RecetaRepository recetaRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             logger.info("=== INICIANDO CARGA DE DATOS PREDEFINIDOS ===");

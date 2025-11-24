@@ -61,7 +61,6 @@ public class AuthController {
             model.addAttribute("message", "Usuario registrado correctamente. Ahora puedes iniciar sesi\u00f3n.");
         } catch (org.springframework.web.client.RestClientException ex) {
             model.addAttribute("message", "Error al registrar usuario: " + ex.getMessage());
-            System.out.println("Error");
         }
 
         return "register";

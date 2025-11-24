@@ -299,6 +299,7 @@ sudo ./deploy.sh
 ```
 
 El script automáticamente:
+
 - Instala Docker y Docker Compose
 - Configura el firewall (puertos 80, 443, 22)
 - Construye las imágenes
@@ -308,10 +309,10 @@ El script automáticamente:
 **URL de producción actual**: `http://149.112.142.245/recetas`
 
 **Acceso a la aplicación:**
-```
+
+```text
 http://149.112.142.245/recetas
 ```
-
 
 #### Testing Local con Docker
 
@@ -341,6 +342,7 @@ docker compose down
 - **Red**: IP pública con puertos 80, 443, 22 abiertos
 
 **Proveedores recomendados:**
+
 - AWS EC2 (t2.medium)
 - Azure VM (Standard B2s)
 - Google Cloud (e2-medium)
@@ -350,6 +352,7 @@ docker compose down
 #### Documentación Completa
 
 Ver **[DEPLOYMENT.md](./DEPLOYMENT.md)** para:
+
 - Configuración detallada de VM en AWS/Azure/GCP
 - Configuración de Security Groups y firewall
 - Despliegue manual paso a paso
