@@ -28,7 +28,7 @@
           <div
             class="card h-100 recipe-card"
             sec:authorize="isAuthenticated()"
-            th:onclick="'window.location.href=\'/recetas/' + ${r.id} + '\';}"
+            th:onclick="'window.location.href=\'/recetas/' + ${r.id} + '\';'"
           >
             <img
               th:src="${r.imagenUrl}"
@@ -54,7 +54,7 @@
               </p>
               <p class="card-text mb-2">
                 <strong
-                  th:text="'Tiempo: ' + ${r.tiempoCoccion} + ' min'"
+                  th:text="'Tiempo: ' + ${r.tiempoPreparacion} + ' min'"
                 ></strong>
               </p>
               <p
@@ -93,7 +93,7 @@
               </p>
               <p class="card-text mb-2">
                 <strong
-                  th:text="'Tiempo: ' + ${r.tiempoCoccion} + ' min'"
+                  th:text="'Tiempo: ' + ${r.tiempoPreparacion} + ' min'"
                 ></strong>
               </p>
               <p

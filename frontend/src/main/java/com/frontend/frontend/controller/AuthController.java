@@ -3,6 +3,7 @@ package com.frontend.frontend.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,17 +18,19 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class AuthController {
 
-    private final String backendUrl = "http://localhost:8080/register";
-
+    @Value("${backend.api.base-url:http://localhost:8080}")
+    private String backendBaseUrl;
 
     @GetMapping("/login")
     public String login() {
         return "login";
     }
+
     @GetMapping("/register")
     public String register(Model model) {
         return "register";
     }
+
     @SuppressWarnings("null")
     @PostMapping("/register")
     public String registerUser(
@@ -47,9 +50,15 @@ public class AuthController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
-            restTemplate.exchange(backendUrl, HttpMethod.POST, entity, String.class);
 
-            model.addAttribute("message", "Usuario registrado correctamente. Ahora puedes iniciar sesión.");
+            restTemplate.exchange(
+                backendBaseUrl + "/api/auth/register",
+                HttpMethod.POST,
+                entity,
+                String.class
+            );
+
+            model.addAttribute("message", "Usuario registrado correctamente. Ahora puedes iniciar sesi\u00f3n.");
         } catch (org.springframework.web.client.RestClientException ex) {
             model.addAttribute("message", "Error al registrar usuario: " + ex.getMessage());
             System.out.println("Error");

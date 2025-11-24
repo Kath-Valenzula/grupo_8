@@ -67,6 +67,7 @@ public class DataInitializer {
                 receta1.setDificultad("Media");
                 receta1.setInstrucciones("1. Marinar la carne. 2. Asar en trompo. 3. Servir en tortillas con piña y cebolla.");
                 receta1.setTiempoCoccion(45);
+                receta1.setImagenUrl("/img/banner1.webp");
                 receta1.setPopular(true);
                 recetaRepository.save(receta1);
                 
@@ -78,6 +79,7 @@ public class DataInitializer {
                 receta2.setDificultad("Fácil");
                 receta2.setInstrucciones("1. Cocer la pasta. 2. Freír la panceta. 3. Mezclar con huevos y queso.");
                 receta2.setTiempoCoccion(20);
+                receta2.setImagenUrl("/img/banner2.png");
                 receta2.setPopular(true);
                 recetaRepository.save(receta2);
                 
@@ -89,6 +91,7 @@ public class DataInitializer {
                 receta3.setDificultad("Alta");
                 receta3.setInstrucciones("1. Sofreír las carnes. 2. Añadir arroz y caldo. 3. Cocinar a fuego medio.");
                 receta3.setTiempoCoccion(60);
+                receta3.setImagenUrl("/img/banner3.png");
                 receta3.setPopular(true);
                 recetaRepository.save(receta3);
                 
